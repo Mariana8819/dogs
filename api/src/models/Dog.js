@@ -12,23 +12,28 @@ module.exports = (sequelize) => {
       },
     image: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     name: {
       type: DataTypes.STRING,
+      unique: true,
       allowNull: false,
     },    
     height: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: DataTypes.JSON,
+      allowNull: true,
     },
     weight: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: DataTypes.JSON,
+      allowNull: true,
     },
     life_span: {
       type: DataTypes.STRING,
+      allowNull: true,
+    }, 
+    temperament:{
+      type: DataTypes.STRING,
       allowNull: false,
-    },      
+    }     
   }, {timestamp: false});
 };
