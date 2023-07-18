@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { getDogsDetailHandler, getDogsHandler } = require("../handlers/getDogsHandler");
+const { getDogsDetailHandler, getDogsHandler } = require("../handlers/DogsHandler");
 
 const getDogsRoutes= Router();
 

@@ -1,27 +1,15 @@
-
-
+const postCreateDogControllers = require("../controllers/postCreateDogControllers");
 
 // POST | /dogs -*-postDogsRoutes.post('/dogs', 
 const postDogsHandler = (req,res)=>{
-    res.status(200).send("Created dog");
-}
-
-//     const {id,image,name,height,weight,life_span,temperament} = req.body;
-//     const dogCreated = await Dog.create({
-//         id,
-//         image,
-//         name,
-//         height,
-//         weight,
-//         life_span,
-//     })
-//     const temperamentDB = await Temperament.findAll({        //hago la relacion aparte creando una nva const,busco en mi modelo T todos los name que coincidan x query
-//         where:{
-//             name: temperament                                // q me llega x body
-//         }
-//     })
-//     dogCreated.addTemperament(temperamentDB)                  //met d sequelize q m trae de la tabla Temperament esa info(temperamentDB)
-//     res.send('Dog created succesfully')
-// });
+    const {id,image,name,height,weight,life_span,temperament} = req.body;
+    try {
+        const response=  postCreateDogControllers(id,image,name,height,weight,life_span,temperament);
+        res.status(200).json(response)
+    } catch (error) {
+        res.status(400).json({error:error.message});
+        
+    }
+    }
 
 module.exports = postDogsHandler;
