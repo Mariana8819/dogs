@@ -1,4 +1,4 @@
-const { getDogById, getDogByName } = require("../controllers/getDogsByIdControllers");
+const { getDogById, getDogByName } = require("../controllers/getDogsControllers");
 
 //GET | /dogs/:idRaza- {detalle}*getDogsRoutes.get('/dogs/:id',
 const getDogsDetailHandler = async(req,res)=>{
