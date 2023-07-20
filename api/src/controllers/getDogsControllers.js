@@ -1,15 +1,13 @@
 const getAllDogs =require("./getAllDogsControllers")
 
-const getDogById =async(id)=>{        
-    const allDogsDetail = await getAllDogs();  
-    const dog=await allDogsDetail.find( dog => dog.id == id);
-    if(dog){
-        return dog;
-    }else{
-        throw new Error ("Dog is not found with that id");
-    }
-    }
-    
+const getDogById =async(id)=>{
+    if(id){
+        const dogFoundById = await allDogsDetail.filter(dogDetail=> dogDetail.id==id)
+        dogFoundById.length?
+        res.status(200).json(dogFoundById):
+        res.status(404).send('That dog was not found')
+}
+}    
     const getDogByName = async(name)=>{
    try{
      const allDogs = await getAllDogs();
@@ -29,7 +27,16 @@ const getDogById =async(id)=>{
 
 module.exports={getDogById,getDogByName};
 
-
+//********************************* */
+    // const allDogsDetail = await getAllDogs();  
+    // const dog=await allDogsDetail.find( dog => dog.id == id);
+    // if(dog){
+    //     return dog;
+    // }else{
+    //     throw new Error ("Dog is not found with that id");
+    // }
+    
+//*************************** */
 //     if(id){
 //         const dogFoundById = await allDogsDetail.filter(dogDetail=> dogDetail.id==id)
 //         dogFoundById.length?

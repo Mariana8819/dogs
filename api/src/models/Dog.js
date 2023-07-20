@@ -20,7 +20,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },    
     height: {
-      type: DataTypes.JSON,
+      type: DataTypes.JSON,  //{","}
       allowNull: true,
     },
     weight: {
