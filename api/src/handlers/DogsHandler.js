@@ -1,6 +1,7 @@
+const getAllDogs = require("../controllers/getAllDogsControllers");
 const { getDogById, getDogByName } = require("../controllers/getDogsControllers");
 
-//GET | /dogs/:idRaza- {detalle}*getDogsRoutes.get('/dogs/:id',
+//GET | /dogs/:idRaza- {detalle}*DogsRoutes.get('/dogs/:id',
 const getDogsDetailHandler = async(req,res)=>{
     const {id} =req.params;
    
@@ -14,12 +15,18 @@ const getDogsDetailHandler = async(req,res)=>{
 
 
 // GET | /dogs
-//GET | /dogs/name?="..."-*-getDogsRoutes.get('/dogs', 
+//GET | /dogs/name?="..."-*-DogsRoutes.get('/dogs', 
 const getDogsHandler= async(req, res)=>{
     const {name} = req.query;
     try {
+        if(name){
         const dogByName= await getDogByName(name);
-        res.status(200).json(dogByName);
+       // console.log("soy handler", dogByName);
+       return res.status(200).json(dogByName);
+        }else{
+            const allDogs= await getAllDogs();
+          return  res.status(200).json(allDogs);
+        }
     } catch (error) {
         res.status(400).json({error:error.message});        
     }
