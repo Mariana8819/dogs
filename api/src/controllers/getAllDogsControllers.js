@@ -86,7 +86,7 @@ const getAllDogs = async () => {
           name: dog.name,
           height: dog.height.metric,
           weight: dog.weight.metric,
-          life_span: dog.life_span,
+          life_span: dog.life,
           temperament: dog.temperament,
         };
       });

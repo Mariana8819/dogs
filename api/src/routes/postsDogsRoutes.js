@@ -1,8 +1,8 @@
-// const {Router} = require("express");
-// const postDogsHandler = require("../handlers/postDogsHandler");
+const {Router} = require("express");
+const postDogsHandler = require("../handlers/postDogsHandler");
 
-// const postDogsRoutes = Router();
+const postDogsRoutes = Router();
 
-// postDogsRoutes.post("/", postDogsHandler);
+postDogsRoutes.post("/", postDogsHandler);
 
-// module.exports= postDogsRoutes;
+module.exports= postDogsRoutes;
