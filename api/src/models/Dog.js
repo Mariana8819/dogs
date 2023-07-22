@@ -30,10 +30,6 @@ module.exports = (sequelize) => {
     life_span: {
       type: DataTypes.STRING,
       allowNull: false,
-    }, 
-    // temperament:{
-    //   type: DataTypes.STRING,
-    //   allowNull: false,
-    // }     
+    },        
   }, {timestamp: false});
 };
