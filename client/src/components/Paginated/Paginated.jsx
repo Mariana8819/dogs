@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Paginado ({
+export default function Paginated ({
     dogsPerPage, allDogs, paginado
 }){
     const pageNumber = [];
@@ -14,7 +14,7 @@ export default function Paginado ({
                 {pageNumber &&
                 pageNumber.map(number =>(
                     <li className="number"  key={number}>
-                        <a onClick={()=> paginado(number)}>{number}</a>
+                        <p onClick={()=> paginado(number)}>{number}</p>
                     </li>
                 ))}
             </ul>

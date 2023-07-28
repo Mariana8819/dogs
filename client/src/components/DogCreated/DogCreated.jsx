@@ -3,16 +3,23 @@ import {Link , useNavigate} from 'react-router-dom';
 import { postDog, getTemperaments } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 
+// function validate(input){
+//     let errors = {};
+//     if(!input.name){
+//         errors.name="se requiere una raza";
+//     }else if(!input)
+// }
+
+
 export default function DogCreated(){
     const dispatch = useDispatch();
     const history = useNavigate();
     const temperaments = useSelector((state)=> state.temperaments)
     const [ input, setInput] = useState({
         name : "",
-        height:0,
-        weight_min:0,
-        weight_max:0,
-        life_time:0,
+        height:"",
+        weight:"",
+        life_time:"",
         image : "",
         temperaments:[]
     })
@@ -45,13 +52,12 @@ export default function DogCreated(){
         evento.preventDefault();
         console.log(input)
         dispatch(postDog(input))
-        alert("Perro creado!")
+        alert("Dog created!")
         setInput({
             name : "",
-            height:0,
-            weight_min:0,
-            weight_max:0,
-            life_time:0,
+            height:"",
+            weight:"",
+            life_time:"",
             image : "",
             temperaments:[]
         })
@@ -60,14 +66,14 @@ export default function DogCreated(){
     
     useEffect(()=>{
         dispatch(getTemperaments())
-    },[]);
+    },[dispatch]);
 
     return(
         <div>
             <Link to='/home'>
-                <button>Volver</button>
+                <button>Return</button>
             </Link>
-            <h1>Crea tu perro!</h1>
+            <h1>Create your dog!</h1>
             <form onSubmit={(evento)=>handleSubmit(evento)}>
                 <div>
                     <label>Nombre:</label>
@@ -79,7 +85,7 @@ export default function DogCreated(){
                     />
                 </div>
                 <div>
-                    <label>Altura:</label>
+                    <label>Height:</label>
                     <input
                     type="text"
                     value={input.height}
@@ -88,25 +94,16 @@ export default function DogCreated(){
                     />
                 </div>
                 <div>
-                    <label>Peso min:</label>
+                    <label>Weight:</label>
                     <input
                     type="text"
-                    value={input.weight_min}
+                    value={input.weight}
                     name="weight_min"
                     onChange={handleChange}
                     />
-                </div>
+                </div>                
                 <div>
-                    <label>Peso max:</label>
-                    <input
-                    type="text"
-                    value={input.weight_max}
-                    name="weight_max"
-                    onChange={handleCheck}
-                    />
-                </div>
-                <div>
-                    <label>Duracion de vida:</label>
+                    <label>Time Life:</label>
                     <input
                     type="text"
                     value={input.life_time}

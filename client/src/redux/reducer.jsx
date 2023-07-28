@@ -1,3 +1,15 @@
+import {
+    GET_ALL_DOGS,
+    GET_NAME_DOGS,
+    GET_DETAIL_DOGS, 
+    GET_TEMPERAMENTS, 
+    POST_DOG, 
+    FILTER_BY_TEMPERAMENTS, 
+    FILTER_BY_WEIGHT, 
+    FILTER_BY_ORDER, 
+    FILTER_CREATED 
+} from "./actions";
+
 
 const initialState = {
     allDogs:[],
@@ -5,53 +17,53 @@ const initialState = {
     dogDetail:{},
     allTemperaments:[],
 
-}
+};
 
 function rootReducer(state = initialState, action){
     switch(action.type){
 
-        case 'GET_ALL_DOGS':
+        case GET_ALL_DOGS:
             return{
                 ...state,
                 dogs: action.payload,
                 allDogs: action.payload
             };
 
-        case 'GET_NAME_DOGS':
+        case GET_NAME_DOGS:
             return{
                 ...state,
                 dogs: action.payload
             };    
 
-        case 'GET_DETAIL_DOGS':
+        case GET_DETAIL_DOGS:
             return{
                 ...state,
                 dogDetail: action.payload
             };    
 
-        case 'POST_DOG':
+        case POST_DOG:
             return{
                 ...state,
             };   
             
-        case 'GET_TEMPERAMENTS':
+        case GET_TEMPERAMENTS:
             return{
                 ...state,
                 allTemperaments: action.payload
             };   
 
-        case 'FILTER_BY _TEMPERAMENTS':
+        case FILTER_BY_TEMPERAMENTS:
             const allDogsTemperaments = state.allDogs;
             const temperamentsFiltered = action.payload === 'all'?
              allDogsTemperaments:
              allDogsTemperaments.filter( elemento=>{return elemento.temperament?.toLowerCase().includes(action.payload.toLowerCase());
-        });
+        })
         return {
             ...state,
             dogs: temperamentsFiltered
         };    
 
-        case 'FILTER_BY_WEIGHT':
+        case FILTER_BY_WEIGHT:
             const allDogsWeight = state.allDogs.filter(elemento=> elemento.weight_min)
             console.log(action.payload, "Soy el payload")
             const filterWeight = action.payload === 'min'?
@@ -63,7 +75,7 @@ function rootReducer(state = initialState, action){
             };
        
             
-        case 'FILTER_CREATED':
+        case FILTER_CREATED:
             const allDogs = state.allDogs;
             const createdFiltered = action.payload === 'created'?
             allDogs.filter(elemento=> elemento.createdInDb):
@@ -75,7 +87,7 @@ function rootReducer(state = initialState, action){
                 createdFiltered 
             };
             
-        case 'FILTER_BY_ORDER':
+        case FILTER_BY_ORDER:
             let sortedArray= action.payload === 'asc'?
             state.dogs.sort(function(a , b){
                 if(a.name > b.name){

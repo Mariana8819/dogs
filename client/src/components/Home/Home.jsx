@@ -1,22 +1,30 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+//import React from "react";
+import { useState, useEffect } from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Link} from "react-router-dom";
-import { getAllDogs, getNameDogs, getIdDogs, getTemperaments, postDog, filterByTemperaments, filterDogsByWeight, filterCreated, orderByName} from "../../redux/actions";
+//import {Link} from "react-router-dom";
+import { getAllDogs} from "../../redux/actions";
 import Card from "../Card/Card";
-import Paginado from "../Paginado/Paginado";
+import Paginated from "../Paginated/Paginated";
+import Filter from "../Filter/Filter";
+//import NavBar from "../NavBar/NavBar";
+import styles from '../Home/Home.module.css';
+import '../Card/Card.module.css';
+
 
 
 export default function Home(){
     const dispatch= useDispatch();
+    //const history= useHistory();
     const allDogs= useSelector((state)=>state.dogs)
+    
     const [currentPage, setCurrentPage] = useState(1);
-    const [dogsPerPage, setDogsPerPage] = useState(8);
+    const [dogsPerPage] = useState(8);
     const indexOfLastDog = currentPage + dogsPerPage;
     const indexOfFirstDog = indexOfLastDog - dogsPerPage;
     const currentDogs = allDogs.slice(indexOfFirstDog, indexOfLastDog);
     
-    const paginado = (pageNumber)=>{
+    // const [order, setOrder] = useState('');
+    const newPage = (pageNumber)=>{
         setCurrentPage(pageNumber)
     }
 
@@ -24,81 +32,22 @@ export default function Home(){
         dispatch(getAllDogs());        
     },[dispatch])
 
-    useEffect(()=>{
-        dispatch(getTemperaments())
-    },[dispatch])
-
-    function handleClick(evento){
-        evento.preventDefault();
-        dispatch(getAllDogs());
-    }
-
-    function handleFilterWeight(evento){
-        dispatch(filterDogsByWeight( evento.target.value))
-    }
-
-    function handleFilterCreated( evento){
-        dispatch(filterCreated(evento.target.value))
-    }
+    // useEffect(()=>{
+    //     dispatch(getTemperaments())
+    // },[dispatch])
 
    
     return(
-        <div>
-            <Link to= '/dogs'> Create dog</Link>
-            <h1>Title of my page</h1>
-            <button onClick={evento=>{handleClick(evento)}}>
-                Reload all dogs
-            </button>
+        <div className={styles.home}>
+            
+            <Filter/>
 
-            <div>
-                <h3>Orden Alfabetico</h3>                
-                <select>
-                    <option value="asc">Ascending</option>
-                    <option value="dsc">Descending</option>                    
-                </select>
-                </div>
+            <Paginated currentPage ={currentPage}  dogsPerPage={dogsPerPage} allDogs={allDogs.length}  newPage={newPage} />
 
-                <div>
-                <h3>Creados</h3>
-                <select onChange={evento=> handleFilterCreated(evento)}>
-                    <option value="all">All</option>
-                    <option value="created">Created</option>
-                    <option value="api">Api</option>
-                </select>
-                </div>
-
-                <div>
-                <h3>Por peso</h3>
-                <select onChange={ evento=> handleFilterWeight(evento)}>
-                    <option value="all">All</option>
-                    <option value="min">Light to heavy</option>
-                    <option value="max">Heavy to light</option>
-                </select>
-                </div>
-
-                <div>
-                <h3>Temperamentos</h3>
-                <select>
-                    <option value="all">All temperaments</option>                   
-                </select>
-                </div>
-
-                <Paginado
-                dogsPerPage = {dogsPerPage}
-                allDogs = {allDogs.length}
-                paginado = {paginado}
-                />
-                {currentDogs?.map((dog)=>{
-                    return(
-                        <fragment>
-                            <Link to={"/home/"+ dog.id}>
-                                <Card name={dog.name} image={dog.image} key={dog.id}/> 
-                            </Link>
-                        </fragment>
-                    )
-                })}
-        </div>
-   )} 
+            <Card allDogs={currentDogs} /> 
+            </div>                                  
+           )      
+   } 
 
    
 
@@ -124,3 +73,68 @@ export default function Home(){
 // <div>
 //     <h1>Cargando...</h1>            
 // </div>
+
+// //******************** */
+// import React from "react";
+// import { useState, useEffect } from "react";
+// import {useDispatch, useSelector} from "react-redux";
+// //import {Link} from "react-router-dom";
+// import { getAllDogs, getTemperaments} from "../../redux/actions";
+// import Card from "../Card/Card";
+// import Paginated from "../Paginated/Paginated";
+// import Filter from "../Filter/Filter";
+// import NavBar from "../NavBar/NavBar";
+// import '../Home/Home.module.css';
+// import '../Card/Card.module.css';
+
+
+
+// export default function Home(){
+//     const dispatch= useDispatch();
+//     //const history= useHistory();
+//     const allDogs= useSelector((state)=>state.dogs)
+    
+//     const [currentPage, setCurrentPage] = useState(1);
+//     const [dogsPerPage, setDogsPerPage] = useState(8);
+//     const indexOfLastDog = currentPage + dogsPerPage;
+//     const indexOfFirstDog = indexOfLastDog - dogsPerPage;
+//     const pagesDogs = allDogs.slice(indexOfFirstDog, indexOfLastDog);
+    
+//     // const [order, setOrder] = useState('');
+//     // const paginated = (pageNumber)=>{
+//     //     setCurrentPage(pageNumber)
+//     // }
+
+//     useEffect(()=>{
+//         dispatch(getAllDogs());        
+//     },[dispatch])
+
+//     useEffect(()=>{
+//         dispatch(getTemperaments())
+//     },[dispatch])
+
+   
+//     return(
+//         <div className="backGround">
+//             <NavBar setCurrentPage = {setCurrentPage} />
+
+//             <Filter setCurrentPage = {setCurrentPage}  setOrder={setOrder}/>
+
+//             <Paginated setCurrentPage = {setCurrentPage} currentPage ={currentPage} dogsPerPage={dogsPerPage} allDogs={allDogs.length}  paginated={paginated} />
+
+//             <div className="container">
+//                 {pagesDogs.length ?  
+//                  pagesDogs.map(e => { 
+//                     return( 
+//                         <React.Fragment key={e.id}> 
+//                         <Card id={e.id} image={e.image} name={e.name} height={e.height} weight={e.weight} temperament={!e.createdInDb ? e.temperament : e.Temperaments.map(dog => dog.name + " ")} key={e.id} /> 
+//                         </React.Fragment> 
+//                         )
+//                         }) :  
+//                         <div> <h1> Cargando...</h1> </div> 
+//                         }
+//             </div>
+//         </div>
+                
+//            )      
+//    } 
