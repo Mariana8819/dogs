@@ -1,23 +1,29 @@
 import './App.css';
 import axios from 'axios';
+//import React, {useState} from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Home from './components/Home/Home';
 import LandingPage from './components/LandingPage/LandingPage';
 import DogCreated from './components/DogCreated/DogCreated';
 import Detail from './components/Detail/Detail';
+import Error404 from './components/Error404/Error404';
+
 
 axios.defaults.baseURL='http://localhost:3001';
 
 function App() {
-  //const location = useLocation();
+ // const [input, setInput] = useState('')
+  
   return (    
     <div className="App">
       <Routes>
-        <Route  path="/" Component={LandingPage}/>
+        <Route  exact path="/" Component={LandingPage}/>           
         <Route  path="/home" Component={Home}/>
-        <Route  path="/dogs" Component={DogCreated}/>
-        <Route  path="/home/:id" Component={Detail}/>
+        <Route  path="/create" Component={DogCreated}/>
+        <Route  path="/detail/:id" Component={Detail}/>   
+        <Route  path="/*"  Component={Error404}/>     
       </Routes>
+      
     </div>    
   );
 }

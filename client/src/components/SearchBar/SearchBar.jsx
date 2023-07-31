@@ -1,31 +1,41 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getNameDogs } from "../../redux/actions";
+import { getNameDogs, getAllDogs } from "../../redux/actions";
 
 export default function SearchBar(){
     const dispatch = useDispatch();
-    const [name, setName] = useState(" ")
+    const [busqueda, setBusqueda] = useState("")
+
+    useEffect(()=>{
+        dispatch(getAllDogs())
+    },[dispatch])
 
     function handleInputChange(evento){
         evento.preventDefault()
-        setName(evento.target.value)
-        console.log(name)
-    }
+        setBusqueda(evento.target.value)
+        console.log(busqueda)
+    };
+
     function handleSubmit(evento){
         evento.preventDefault()
-        dispatch(getNameDogs(name))
+        dispatch(getNameDogs(busqueda));
+        setBusqueda("")
     }
+
     return(
-        <div>
+        <div className="containerInput">
             <input
-            type="text"
+            className="inputBuscar"
+            value={busqueda}
             placeholder="Buscar..."
             onChange={(evento)=> handleInputChange(evento)}
             />
             <button 
-            type="submit" onClick={(evento)=> handleSubmit(evento)}
-            >Buscar</button>
+            className="button-dark"
+            onClick={(evento)=> handleSubmit(evento)}>
+                🔍
+                </button>
         </div>
     )
-}
+};
