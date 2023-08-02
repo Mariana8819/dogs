@@ -21,7 +21,7 @@ const getDogsHandler= async(req, res)=>{
     try {
         if(name){
         const dogByName= await getDogByName(name);
-       // console.log("soy handler", dogByName);
+       
        return res.status(200).json(dogByName);
         }else{
             const allDogs= await getAllDogs();

@@ -38,8 +38,7 @@ const getAllDogs = async () => {
     console.log(allInfo);
     return allInfo;
 
-    // const allDogsInfo = infoApi.concat(dbInfo);
-    // return allDogsInfo;
+   
   };
 
 module.exports= getAllDogs;

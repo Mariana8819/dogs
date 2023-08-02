@@ -21,6 +21,10 @@
     background-color: #c71515;
     color: rgb(255, 255, 255);
   }
+  .buttonPage{
+    background-color: #9c1172;
+    color: rgb(255, 255, 255);
+  }
   
   .disabled {
     color: rgb(125, 125, 125);
@@ -35,6 +39,15 @@
     background-color: #c71515;
     color: rgb(255, 255, 255);
   }
+  .select {
+    background-color: bisque;
+    color: rgba(165, 10, 10, 0.6);
+}
+
+.notselected {
+    background-color: rgba(21, 8, 133, 0.6);
+    color: bisque;
+}l
   
   @media (min-width: 500px) {
     .pageNumber {
