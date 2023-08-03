@@ -1,121 +1,40 @@
-// import React from "react";
-// import { useState, useEffect } from "react";
-// import { useDispatch } from "react-redux";
-// import { getNameDogs, getAllDogs } from "../../redux/actions";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { getDogs, getQueryDog } from "../../redux/actions";
+import style from "./SearchBar.module.css";
 
-// export default function SearchBar(){
-//     const dispatch = useDispatch();
-//     const [busqueda, setBusqueda] = useState("")
 
-//     useEffect(()=>{
-//         dispatch(getAllDogs())
-//     },[dispatch])
-
-//     function handleInputChange(evento){
-//         evento.preventDefault()
-//         setBusqueda(evento.target.value)
-//         console.log(busqueda)
-//     };
-
-//     function handleSubmit(evento){
-//         evento.preventDefault()
-//         dispatch(getNameDogs(busqueda));
-//         setBusqueda("")
-//     }
-
-//     return(
-//         <div className="containerInput">
-//             <input
-//             className="inputBuscar"
-//             value={busqueda}
-//             placeholder="Buscar..."
-//             onChange={(evento)=> handleInputChange(evento)}
-//             />
-//             <button 
-//             className="button-dark"
-//             onClick={(evento)=> handleSubmit(evento)}>
-//                 🔍
-//                 </button>
-//         </div>
-//     )
-// };
-
-//*************************************************************
-
-// import { useState} from "react";
-// import { useDispatch } from "react-redux";
-// import { getNameDogs, getAllDogs } from "../../redux/actions";
-
-// export default function SearchBar(){
-//     const dispatch = useDispatch();
-//     const [busqueda, setBusqueda] = useState("")
-
-//     const handleInputChange =(evento)=>{
-//         if(!evento.target.value){
-//             dispatch(getAllDogs());
-//             setBusqueda('')
-//         }else{
-//             setBusqueda(evento.target.value)
-//         }
-//     }
+export default function SearchBar (){
+    const [input, setInput] = useState('');
+    const dispatch = useDispatch()
     
-//     const handleSubmit = (evento)=>{
-//         const {value} =evento.target
-//         if(value){
-//             dispatch(getNameDogs(value))
-//         }else{
-//             dispatch(getAllDogs())
-//         }
-//     }
-   
-//     return(
-//         <div>
-//             <input
-//             type="text"
-//             name="search"
-//             value={busqueda}
-//             placeholder="Dog"
-//             onChange={(evento)=> handleInputChange(evento)}
-//             />
-//             <button             
-//             onClick={(evento)=> handleSubmit(evento)} 
-//             value={busqueda}>
-//                 🔍
-//                 </button>
-//         </div>
-//     )
-// };
-//****************************************************************************
-
-import React from 'react';
-import './SearchBar.module.css'
-
-    //! SearchBar input and Clear button
-export default function SearchBar({ input, setInput }) {
-  return (
-    <div>
-      <form
-        onSubmit={(evento) => evento.preventDefault()}
-        className="formContainer"
-      >
-        
-        <div className="searchBarContainer">
-          <input
-            type="text"
-            value={input}
-            placeholder="Search Dog Breed"
-            onChange={(evento) => setInput(evento.target.value)}
-            className="input"
-          ></input>
-          <button
-            className="button"
-            onClick={() => (window.location.href = '/home')}
-          >
-            Clear
-          </button>
+    
+    const searchHandler = (event) =>{
+        const {value} = event.target
+        if(value){
+            dispatch(getQueryDog(value))
+        }else{
+            dispatch(getDogs())
+            
+        }
+    }
+    const handlerInput = (event) => {
+        if(!event.target.value){
+            dispatch(getDogs());
+            setInput('')
+        }else{
+            setInput(event.target.value)
+        }
+    }
+    const handleKeyPress = (event) => {
+        if(event.key === 'Enter'){
+            searchHandler(event)
+        }
+      }
+    return (
+        <div className={style.searchbar}>
+            <input type="text" name='search' placeholder="Dog" value={input} onChange={handlerInput} onKeyDown={handleKeyPress}/>
+            <button onClick={searchHandler} value={input}>Search</button>
         </div>
-      </form>
-    </div>
-  )
+    )
 }
-
